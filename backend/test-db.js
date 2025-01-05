@@ -1,11 +1,13 @@
 const pool = require('./db');
 
-// Test the database connection
-pool.query('SELECT NOW()', (err, res) => {
-    if (err) {
-        console.error('Database connection error:', err.stack);
-    } else {
-        console.log('Database connected:', res.rows);
+// Example function to get all rooms
+async function getRooms() {
+    try {
+        const result = await pool.query('SELECT * FROM rooms');
+        console.log(result.rows);
+    } catch (error) {
+        console.error('Error executing query:', error.stack);
     }
-    pool.end(); // Close the connection
-});
+}
+
+getRooms();
